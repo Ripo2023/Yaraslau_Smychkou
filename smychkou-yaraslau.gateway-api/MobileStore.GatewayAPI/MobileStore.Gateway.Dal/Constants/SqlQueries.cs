@@ -30,8 +30,23 @@
 
         internal const string UpdateOrder = @"";
 
-        internal const string GetAllOrders = @"";
+        internal const string GetAllOrders = @"SELECT 
+                                                   o.Id, o.Code, o.Status,
+                                                   p.Id AS ProductId, p.Name AS ProductName, p.ImagePath AS ProductImagePath
+                                               FROM Order o
+                                               LEFT JOIN OrderProduct op ON op.OrderId = o.Id
+                                               LEFT JOIN Product p       ON p.Id = op.ProductId";
 
-        internal const string GetOrderDetails = @"";
+        internal const string GetOrderDetails = @"SELECT 
+                                                      o.Id, o.Code, o.Status, o. TakingDate, o.CompletedDate,
+                                                      p.Id AS ProductId, p.Name AS ProductName, p.ImagePath AS ProductImagePath,
+                                                      
+                                                  FROM Order o
+                                                  LEFT JOIN OrderProduct op     ON op.OrderId = o.Id
+                                                  LEFT JOIN Product p           ON p.Id = op.ProductId
+                                                  LEFT JOIN ProductComponent pc ON pc.ProductId = p.Id
+                                                  LEFT JOIN Component c         ON c.Id = pc.ComponentId
+                                                  LEFT JOIN ProductVolume pv ON pv.ProductId = p.Id
+                                                  WHERE o.Id = @orderId";
     }
 }

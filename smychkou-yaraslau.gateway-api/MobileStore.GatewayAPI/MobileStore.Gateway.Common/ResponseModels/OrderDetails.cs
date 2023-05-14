@@ -10,6 +10,10 @@ namespace MobileStore.Gateway.Common.ResponseModels
 
         public OrderStatus Status { get; set; }
 
+        public DateTime TakingDate { get; set; }
+
+        public DateTime CompletedDate { get; set; }
+
         public IEnumerable<OrderProductInfo> Products { get; set; }
     }
 }
