@@ -1,0 +1,40 @@
+﻿@page "/onboarding"
+@using MobileStore.MauiClient.Bll.Interfaces;
+@using MobileStore.MauiClient.Bll.Models;
+@inject IOnboardingService OnboardingService
+
+<button class="btn btn-primary" @onclick="SkipAll">Skip</button>
+
+<img src="@content.ImagePath" />
+
+<h1>@content.Title</h1>
+
+<p>@content.Description</p>
+<p role="status">Current page: @(index + 1)</p>
+
+<button class="btn btn-primary" @onclick="IncrementIndex">Next</button>
+
+@code {
+    private int index = 0;
+    private OnboardingContent content;
+
+    private async Task IncrementIndex()
+    {
+        index++;
+
+        if (index < content.PagesCount)
+        {
+            await OnInitializedAsync();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        content = await OnboardingService.GetOnboardingContentAsync(index);
+    }
+
+    private void SkipAll()
+    {
+        index = content.PagesCount;
+    }
+}

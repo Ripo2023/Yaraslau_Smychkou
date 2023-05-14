@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MobileStore.Gateway.Common\MobileStore.Gateway.Common.csproj" />
+    <ProjectReference Include="..\MobileStore.Gateway.Dal\MobileStore.Gateway.Dal.csproj" />
+  </ItemGroup>
+
+</Project>
