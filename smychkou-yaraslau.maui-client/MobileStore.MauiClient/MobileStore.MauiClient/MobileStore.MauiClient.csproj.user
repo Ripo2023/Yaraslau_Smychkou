@@ -5,5 +5,9 @@
     <ActiveDebugFramework>net6.0-android</ActiveDebugFramework>
     <ActiveDebugProfile>Samsung SM-J260F (Android 8.1 — API 27)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
+    <DefaultDevice>pixel_5_-_api_29</DefaultDevice>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

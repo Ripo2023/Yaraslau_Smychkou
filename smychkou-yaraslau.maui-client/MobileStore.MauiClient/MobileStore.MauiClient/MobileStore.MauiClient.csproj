@@ -13,7 +13,7 @@
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
 
         <!-- Display name -->
-        <ApplicationTitle>MobileStore.MauiClient</ApplicationTitle>
+        <ApplicationTitle>Coffee to Go</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.mobilestore.mauiclient</ApplicationId>
@@ -33,10 +33,10 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#E34200" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FFD1BF" BaseSize="375,675" />
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
@@ -52,6 +52,10 @@
     <ItemGroup>
       <ProjectReference Include="..\MobileStore.MauiClient.Bll\MobileStore.MauiClient.Bll.csproj" />
       <ProjectReference Include="..\MobileStore.MauiClient.Shared\MobileStore.MauiClient.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\Onboarding\" />
     </ItemGroup>
 
 </Project>

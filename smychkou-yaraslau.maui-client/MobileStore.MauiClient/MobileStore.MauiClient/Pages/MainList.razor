@@ -1,0 +1,75 @@
+﻿@page "/mainlist/{CategoryId:int}"
+@inject ICategoryService CategoryService
+
+@using MobileStore.MauiClient.Bll.Interfaces;
+@using MobileStore.MauiClient.Shared.RequestModels;
+@using MobileStore.MauiClient.Shared.ResponseModels;
+
+<MainListHeader />
+
+<div class="w-100" style="display: flex; flex-wrap: wrap; align-content: space-around">
+    @foreach (var category in categories)
+    {
+        if (category.Id == CategoryId)
+        {
+            <button class="btn btn-dark text-light mx-1" style="outline: none">
+                <p style="padding: 0; text-align: center">@category.Name</p>
+            </button>
+        }
+        else
+        {
+            <button class="btn bg-transparent text-black-50 mx-1" style="outline: none" @onclick="(e) => SelectCategoryAsync(category.Id)">
+                <p style="padding: 0">@category.Name</p>
+            </button>
+        }
+    }
+</div>
+
+<div class="m-auto" style="display: flex; flex-wrap: wrap; align-content: space-around">
+    @foreach (var product in products)
+    {
+        <div class="p-3 shadow card m-2" style="border-radius: 1em; min-width: 42vw">
+            <div style="min-height: 15vh">
+                <img src="@product.ImagePath" />
+            </div>
+            <h3 class="text-center">@product.Name</h3>
+            <p class="text-center">from @product.StartPrice P</p>
+            <a href="/products/@product.Id" class="select-product btn text-center" style="transition: 100ms; border: 0.1em solid #E34200; color: #E34200; font-size: 1em; background-color: transparent;">Select</a>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int CategoryId { get; set; }
+
+    private CreateOrderRequestModel order;
+    private int? lastViewedId;
+    private IEnumerable<Category> categories;
+    private IEnumerable<ProductPreview> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (categories is null)
+        {
+            categories = await CategoryService.GetAllCategories();
+            products = await CategoryService.GetCategoryProductsByPage(new GetCategoryProductsRequestModel
+            {
+                CategoryId = CategoryId,
+                PageSize = 4,
+            });
+        }
+
+        order = new CreateOrderRequestModel
+        {
+            Products = Array.Empty<ProductComponentsRequestModel>(),
+        };
+    }
+
+    private async Task SelectCategoryAsync(int categoryId)
+    {
+        CategoryId = categoryId;
+
+        await OnInitializedAsync();
+    }
+}

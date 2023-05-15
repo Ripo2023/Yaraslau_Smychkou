@@ -4,11 +4,11 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileStore.MauiClient", "MobileStore.MauiClient\MobileStore.MauiClient.csproj", "{CCFD7AE3-3F7C-4446-9965-B44FEEFD9763}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileStore.MauiClient.Bff", "MobileStore.MauiClient.Bff\MobileStore.MauiClient.Bff.csproj", "{C32EF165-D032-4606-8738-D62883A921A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileStore.MauiClient.Bff", "MobileStore.MauiClient.Bff\MobileStore.MauiClient.Bff.csproj", "{C32EF165-D032-4606-8738-D62883A921A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileStore.MauiClient.Shared", "MobileStore.MauiClient.Shared\MobileStore.MauiClient.Shared.csproj", "{5293CD12-E0A9-45B1-9C32-23FC581B4B30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileStore.MauiClient.Shared", "MobileStore.MauiClient.Shared\MobileStore.MauiClient.Shared.csproj", "{5293CD12-E0A9-45B1-9C32-23FC581B4B30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileStore.MauiClient.Bll", "MobileStore.MauiClient.Bll\MobileStore.MauiClient.Bll.csproj", "{B7C03337-F3C4-4566-B40A-C55DFA0E9E3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileStore.MauiClient.Bll", "MobileStore.MauiClient.Bll\MobileStore.MauiClient.Bll.csproj", "{B7C03337-F3C4-4566-B40A-C55DFA0E9E3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

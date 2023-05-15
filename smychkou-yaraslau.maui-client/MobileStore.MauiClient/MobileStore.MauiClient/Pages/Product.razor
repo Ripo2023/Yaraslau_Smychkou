@@ -1,0 +1,113 @@
+﻿@page "/products/{ProductId:int}";
+@inject IProductService ProductService;
+
+@using MobileStore.MauiClient.Bll.Interfaces;
+@using MobileStore.MauiClient.Shared.RequestModels;
+@using MobileStore.MauiClient.Shared.ResponseModels;
+
+<div>
+    <h1>@details.Name</h1>
+</div>
+
+<p>@details.Description</p>
+
+<div class="w-100" style="display: flex; flex-wrap: wrap; align-content: space-around">
+    @foreach (var volume in details.Volumes)
+    {
+        @if (volume.Number == orderProduct.VolumeNumber)
+        {
+            <div class="btn btn-dark text-light mx-1" style="outline: none" disabled>
+                <p style="padding: 0; text-align: center">@volume.Volume</p>
+            </div>
+        }
+        else
+        {
+            <button class="btn btn-transparent text-dark mx-1" style="outline: none" @onclick="() => ChangeVolume(volume.Number)">
+                <p style="padding: 0; text-align: center">@volume.Volume</p>
+            </button>
+        }
+    }
+</div>
+
+<div class="w-100" style="display: flex; flex-wrap: wrap; align-content: space-around">
+    @foreach (var component in details.Components)
+    {
+        <div style="display:flex; flex-direction: column">
+            @if (orderProduct.AdditionalComponents.Contains(component.Id))
+            {
+                @if (component.IsStandart)
+                {
+                    <div class="card text-light mx-1" style="min-height: 30vw; min-width: 30vw;" disabled>
+                        <img src="@component.ImagePath" />
+                    </div>
+                }
+                else
+                {
+                    <button class="card text-light mx-1" style="min-height: 30vw; min-width: 30vw;" @onclick="() => RemoveComponent(component.Id)">
+                        <img src="@component.ImagePath" />
+                    </button>
+                }
+            }
+            else
+            {
+                <button class="card text-light mx-1 bg-light" style="outline: none; min-height: 30vw; min-width: 30vw;" @onclick="() => AddComponent(component.Id)" />
+            }
+            <p>@component.Name</p>
+        </div>
+    }
+</div>
+
+<button class="btn text-light w-100" style="background-color: #FF5712;">Add to cart @cost P</button>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    private ProductComponentsRequestModel orderProduct;
+    private decimal cost;
+    private int? lastViewedId;
+    private ProductDetails details;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (details is null)
+        {
+            details = await ProductService.GetProductDetails(ProductId);
+            orderProduct = new ProductComponentsRequestModel
+                {
+                    ProductId = ProductId,
+                    VolumeNumber = 1,
+                    AdditionalComponents = Array.Empty<int>(),
+                };
+        }
+
+        RecalculateCost();
+    }
+
+    private void RecalculateCost()
+    {
+        cost = (details.Volumes
+            .Where(item => item.Number == orderProduct.VolumeNumber)
+            .Select(item => item.Volume)
+            .FirstOrDefault() / details.Volumes.Min(item => item.Volume)) *
+            details.StartCost + details.Components.Where(item => !item.IsStandart).Select(item => item.Price).Sum();
+    }
+
+    private async Task AddComponent(int componentId)
+    {
+        orderProduct.AdditionalComponents = orderProduct.AdditionalComponents.Append(componentId).ToList();
+        await OnInitializedAsync();
+    }
+
+    private async Task RemoveComponent(int componentId)
+    {
+        orderProduct.AdditionalComponents = orderProduct.AdditionalComponents.Where(item => item != componentId).ToList();
+        await OnInitializedAsync();
+    }
+
+    private async Task ChangeVolume(int volumeNumber)
+    {
+        orderProduct.VolumeNumber = volumeNumber;
+        await OnInitializedAsync();
+    }
+}

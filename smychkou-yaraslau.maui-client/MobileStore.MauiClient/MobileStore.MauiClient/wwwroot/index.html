@@ -4,17 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 	<title>MobileStore.MauiClient</title>
-	<base href="/" />
+	<base href="/onboarding" />
 	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
 	<link href="css/app.css" rel="stylesheet" />
 	<link href="MobileStore.MauiClient.styles.css" rel="stylesheet" />
 </head>
 
 <body>
-
 	<div class="status-bar-safe-area"></div>
 
-	<div id="app">Loading...</div>
+	<div id="app" style="min-height: 1vh">
+		<div style="display: flex; flex-direction: column; align-items: center; min-height: 1vh">
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<p class="text-center bg-transparent">Loading...</p>
+			</div>
+		</div>
+	</div>
 
 	<div id="blazor-error-ui">
 		An unhandled error has occurred.

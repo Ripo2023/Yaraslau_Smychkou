@@ -10,6 +10,8 @@ public class ProductDetails
 
     public string ImagePath { get; set; }
 
+    public decimal StartCost { get; set; }
+
     public IEnumerable<ProductVolumeInfo> Volumes { get; set; }
 
     public IEnumerable<ProductComponentInfo> Components { get; set; }

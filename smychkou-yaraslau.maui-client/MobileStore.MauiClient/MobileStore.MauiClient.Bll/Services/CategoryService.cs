@@ -16,11 +16,65 @@ public class CategoryService : ICategoryService
 
     public Task<IEnumerable<Category>> GetAllCategories()
     {
-        throw new NotImplementedException();
+        //return categoryConnector.GetAllCategories();
+
+        return Task.FromResult(new[]
+        {
+            new Category
+            {
+                Id = 1,
+                Name = "Coffee",
+            },
+            new Category
+            {
+                Id = 2,
+                Name = "Tea",
+            },
+            new Category
+            {
+                Id = 3,
+                Name = "Drinks",
+            },
+            new Category
+            {
+                Id = 4,
+                Name = "Deserts",
+            },
+        }.AsEnumerable());
     }
 
     public Task<IEnumerable<ProductPreview>> GetCategoryProductsByPage(GetCategoryProductsRequestModel model)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(new[]
+        {
+            new ProductPreview
+            {
+                Id = 1,
+                Name = "Cappucino",
+                ImagePath = "ImagePath",
+                StartPrice = 120,
+            },
+            new ProductPreview
+            {
+                Id = 2,
+                Name = "Espresso",
+                ImagePath = "ImagePath",
+                StartPrice = 120,
+            },
+            new ProductPreview
+            {
+                Id = 3,
+                Name = "Latte",
+                ImagePath = "ImagePath",
+                StartPrice = 120,
+            },
+            new ProductPreview
+            {
+                Id = 4,
+                Name = "Raff",
+                ImagePath = "ImagePath",
+                StartPrice = 120,
+            },
+        }.AsEnumerable());
     }
 }
