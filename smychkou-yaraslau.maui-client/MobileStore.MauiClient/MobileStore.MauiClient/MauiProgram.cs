@@ -2,8 +2,6 @@
 using MobileStore.MauiClient.Bff.Interfaces;
 using MobileStore.MauiClient.Bll.Interfaces;
 using MobileStore.MauiClient.Bll.Services;
-using MobileStore.MauiClient.Data;
-
 namespace MobileStore.MauiClient;
 
 public static class MauiProgram

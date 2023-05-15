@@ -1,18 +1,43 @@
 ﻿using MobileStore.MauiClient.Bff.Interfaces;
 using MobileStore.MauiClient.Shared.RequestModels;
 using MobileStore.MauiClient.Shared.ResponseModels;
+using System.Text.Json;
 
 namespace MobileStore.MauiClient.Bff.Connectors;
 
 public class CategoryConnector : ICategoryConnector
 {
-    public Task<IEnumerable<Category>> GetAllCategories()
+    public async Task<IEnumerable<Category>> GetAllCategories()
     {
-        throw new NotImplementedException();
+        using var client = new HttpClient
+        {
+            BaseAddress = new Uri("http://localhost:42143"),
+        };
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, "api/categories");
+        using var response = await client.SendAsync(request);
+
+        response.EnsureSuccessStatusCode();
+
+        var json = await response.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<IEnumerable<Category>>(json);
     }
 
-    public Task<IEnumerable<ProductPreview>> GetCategoryProductsByPage(GetCategoryProductsRequestModel model)
+    public async Task<IEnumerable<ProductPreview>> GetCategoryProductsByPage(GetCategoryProductsRequestModel model)
     {
-        throw new NotImplementedException();
-    }
+		using var client = new HttpClient
+		{
+			BaseAddress = new Uri("http://localhost:42143"),
+		};
+
+		using var request = new HttpRequestMessage(HttpMethod.Get, $"api/categories/{model.CategoryId}/products?pageSize={model.PageSize}&lastViewedId={model.LastViewedId}");
+		using var response = await client.SendAsync(request);
+
+        response.EnsureSuccessStatusCode();
+
+        var json = await response.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<IEnumerable<ProductPreview>>(response.Content.ToString());
+	}
 }
